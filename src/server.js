@@ -2,23 +2,38 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const connectDB = require('./config/database');
 
 // Configura as variáveis de ambiente
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Configurações básicas
-app.use(cors()); // Libera acesso
-app.use(express.json()); // JSON
+app.use(cors());
+app.use(express.json());
 
-//(só pra ver se funciona)
+// Rota de teste
 app.get('/', (req, res) => {
     res.send('Servidor da Biblioteca está rodando!');
 });
 
+// Função para iniciar o servidor
+const startServer = async () => {
+  try {
+    // 1. Tenta conectar ao MongoDB
+    await connectDB(); 
+    
+    // 2. Só liga o servidor DEPOIS que o banco conectar
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+
+  } catch (error) {
+    console.error("Falha ao iniciar o servidor, verifique o banco de dados:", error.message);
+    process.exit(1); // Encerra a aplicação se o banco não conectar
+  }
+};
+
 // Inicia o servidor
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+startServer();
