@@ -1,0 +1,24 @@
+{
+  "name": "biblioteca-backend",
+  "version": "1.0.0",
+  "description": "API para gerenciamento de biblioteca virtual com autenticação JWT",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": ["biblioteca", "api", "jwt", "mongodb"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
